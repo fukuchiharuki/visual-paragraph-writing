@@ -18,7 +18,7 @@ export default class ParagraphTreeDataProvider implements vscode.TreeDataProvide
   getTreeItem(element: TextElement): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return isSentence(element)
       ? new vscode.TreeItem(element.content, vscode.TreeItemCollapsibleState.None)
-      : new vscode.TreeItem(element.content[0].content, vscode.TreeItemCollapsibleState.None);
+      : new vscode.TreeItem(element.content[0].content, vscode.TreeItemCollapsibleState.Expanded);
   }
 
   getChildren(element?: TextElement | undefined): vscode.ProviderResult<TextElement[]> {
