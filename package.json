@@ -12,12 +12,24 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "visual-paragraph-writing.helloWorld",
-        "title": "Hello World"
-      }
-    ]
+    "commands": [],
+    "viewsContainers": {
+			"activitybar": [
+				{
+					"id": "paragraphTreeActivityView",
+					"title": "Paragraph Tree",
+					"icon": "media/tree-structure-svgrepo-com.svg"
+				}
+			]
+		},
+    "views": {
+      "paragraphTreeActivityView": [
+        {
+          "id": "paragraphTreeSidebarView",
+          "name": "Paragraph Tree"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
