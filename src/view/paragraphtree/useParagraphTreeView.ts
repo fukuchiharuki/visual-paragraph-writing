@@ -4,24 +4,31 @@ import debounce from '../../util/debounce';
 
 export default function useParagraphTreeView() {
   const paragraphTreeView = new ParagraphTreeView();
-
-  const disposable = paragraphTreeView.register();
-  attachEventHandlers();
+  const view = paragraphTreeView.register();
+  const handlers = attachEventHandlers();
   initialize();
 
-  return { disposable };
+  return { disposables: [view, ...handlers] };
 
-  function attachEventHandlers() {
-    vscode.window.onDidChangeActiveTextEditor(editor => {
-      debounce(() => reflect(editor));
-    });
+  function attachEventHandlers(): vscode.Disposable[] {
+    const disposables: vscode.Disposable[] = [];
 
-    vscode.workspace.onDidChangeTextDocument(event => {
-      const editor = vscode.window.activeTextEditor;
-      if (editor && event.document === editor.document) {
-        debounce(() => refresh(event.document));
-      }
-    });
+    disposables.push(
+      vscode.window.onDidChangeActiveTextEditor(editor => {
+        debounce(() => reflect(editor));
+      })
+    );
+
+    disposables.push(
+      vscode.workspace.onDidChangeTextDocument(event => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor && event.document === editor.document) {
+          debounce(() => refresh(event.document));
+        }
+      })
+    );
+
+    return disposables;
   }
 
   function initialize() {
