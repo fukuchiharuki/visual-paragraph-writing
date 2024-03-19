@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import ParagraphTreeDataProvider from './ParagraphTreeDataProvider';
+import convertTextToParagraphs from '../../model/text/service/convertTextToParagraphs';
 
 export default class ParagraphTreeView {
   constructor(
@@ -11,10 +12,6 @@ export default class ParagraphTreeView {
   }
 
   refresh(document: vscode.TextDocument) {
-    this.dataProvider.refresh(
-      document.getText()
-        .split('\n')
-        .map(it => ({ content: it }))
-    );
+    this.dataProvider.refresh(convertTextToParagraphs(document.getText()));
   }
 }
