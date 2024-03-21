@@ -1,23 +1,27 @@
 import Paragraph from "../Paragraph";
+import Sentence from "../Sentence";
+
+type Line = Sentence;
 
 export default function convertTextToParagraphs(text: string): Paragraph[] {
   return text.split('\n')
+    .map((content, lineNumber) => ({ content, lineNumber }))
     .reduce(reducer, [])
     .filter(isNotEmpty);
 }
 
-function reducer(acc: Paragraph[], line: string): Paragraph[] {
-  return line ? appendSentence(acc, line) : newParagraph(acc);
+function reducer(acc: Paragraph[], line: Line): Paragraph[] {
+  return line.content ? appendSentence(acc, line) : newParagraph(acc);
 }
 
-function appendSentence(acc: Paragraph[], line: string): Paragraph[] {
+function appendSentence(acc: Paragraph[], line: Line): Paragraph[] {
   const ret = [...acc];
   const lastParagraph = ret.pop();
   return ret.concat([
     {
       content: lastParagraph
-        ? lastParagraph.content.concat([{ content: line }])
-        : [{ content: line }]
+        ? lastParagraph.content.concat([line])
+        : [line]
     }
   ]);
 }

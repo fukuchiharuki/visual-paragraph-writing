@@ -1,5 +1,6 @@
 type Sentence = {
   content: string
+  lineNumber: number
 };
 
 export default Sentence;

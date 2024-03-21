@@ -28,6 +28,13 @@ export default function useParagraphTreeView() {
       })
     );
 
+    treeView.onDidChangeSelection(event => {
+      const selection = event.selection;
+      if (selection && selection.length) {
+        paragraphTreeView.onDidChangeSelection(selection[0]);
+      }
+    });
+
     // treeView.onDidExpandElement(event => {
     //   paragraphTreeView.onDidExpandElement(event.element);
     // });
