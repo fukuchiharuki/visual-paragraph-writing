@@ -4,11 +4,11 @@ import debounce from '../../util/debounce';
 
 export default function useParagraphTreeView() {
   const paragraphTreeView = new ParagraphTreeView();
-  const view = paragraphTreeView.register();
+  const treeView = paragraphTreeView.register();
   const handlers = attachEventHandlers();
   initialize();
 
-  return { disposables: [view, ...handlers] };
+  return { disposables: [treeView, ...handlers] };
 
   function attachEventHandlers(): vscode.Disposable[] {
     const disposables: vscode.Disposable[] = [];
@@ -27,6 +27,14 @@ export default function useParagraphTreeView() {
         }
       })
     );
+
+    // treeView.onDidExpandElement(event => {
+    //   paragraphTreeView.onDidExpandElement(event.element);
+    // });
+
+    // treeView.onDidCollapseElement(event => {
+    //   paragraphTreeView.onDidCollapseElement(event.element);
+    // });
 
     return disposables;
   }
