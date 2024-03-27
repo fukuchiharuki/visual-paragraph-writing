@@ -34,20 +34,26 @@ export default function useParagraphTreeView() {
       })
     );
 
-    treeView.onDidChangeSelection(event => {
-      const selection = event.selection;
-      if (selection && selection.length) {
-        paragraphTreeView.onDidChangeSelection(selection[0]);
-      }
-    });
+    disposables.push(
+      treeView.onDidChangeSelection(event => {
+        const selection = event.selection;
+        if (selection && selection.length) {
+          paragraphTreeView.onDidChangeSelection(selection[0]);
+        }
+      })
+    );
 
-    treeView.onDidExpandElement(event => {
-      paragraphTreeView.onDidExpandElement(event.element);
-    });
+    disposables.push(
+      treeView.onDidExpandElement(event => {
+        paragraphTreeView.onDidExpandElement(event.element);
+      })
+    );
 
-    treeView.onDidCollapseElement(event => {
-      paragraphTreeView.onDidCollapseElement(event.element);
-    });
+    disposables.push(
+      treeView.onDidCollapseElement(event => {
+        paragraphTreeView.onDidCollapseElement(event.element);
+      })
+    );
 
     return disposables;
   }
