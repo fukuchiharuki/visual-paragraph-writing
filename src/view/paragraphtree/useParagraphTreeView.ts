@@ -11,51 +11,43 @@ export default function useParagraphTreeView() {
   return { disposables: [treeView, ...handlers] };
 
   function attachEventHandlers(): vscode.Disposable[] {
-    const disposables: vscode.Disposable[] = [];
-
-    disposables.push(
+    return [
+      // アクティブなテキストエディターの変更に伴うサイドバーの更新
       vscode.window.onDidChangeActiveTextEditor(editor => {
         debounce(() => reflect(editor));
-      })
-    );
+      }),
 
-    disposables.push(
+      // テキスト本文の変更に伴うサイドバーの更新
       vscode.workspace.onDidChangeTextDocument(event => {
         const editor = vscode.window.activeTextEditor;
         if (editor && event.document === editor.document) {
           debounce(() => refresh(event.document));
         }
-      })
-    );
+      }),
 
-    disposables.push(
+      // すべて閉じるボタンによるサイドバーの更新
       vscode.commands.registerCommand('visual-paragraph-writing.collapseAll', () => {
         paragraphTreeView.collapseAll();
-      })
-    );
+      }),
 
-    disposables.push(
+      // 開操作による内部状態の更新
+      treeView.onDidExpandElement(event => {
+        paragraphTreeView.onDidExpandElement(event.element);
+      }),
+
+      // 閉操作による内部状態の更新
+      treeView.onDidCollapseElement(event => {
+        paragraphTreeView.onDidCollapseElement(event.element);
+      }),
+
+      // クリックによるテキストエディター上のジャンプ
       treeView.onDidChangeSelection(event => {
         const selection = event.selection;
         if (selection && selection.length) {
           paragraphTreeView.onDidChangeSelection(selection[0]);
         }
-      })
-    );
-
-    disposables.push(
-      treeView.onDidExpandElement(event => {
-        paragraphTreeView.onDidExpandElement(event.element);
-      })
-    );
-
-    disposables.push(
-      treeView.onDidCollapseElement(event => {
-        paragraphTreeView.onDidCollapseElement(event.element);
-      })
-    );
-
-    return disposables;
+      }),
+    ];
   }
 
   function initialize() {
