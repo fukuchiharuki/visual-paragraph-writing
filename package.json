@@ -12,7 +12,13 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [],
+    "commands": [
+      {
+        "command": "visual-paragraph-writing.collapseAll",
+        "title": "Collapse all",
+        "icon": "$(collapse-all)"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -27,6 +33,15 @@
         {
           "id": "paragraphTreeSidebarView",
           "name": "Paragraph Tree"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "visual-paragraph-writing.collapseAll",
+          "when": "view == paragraphTreeSidebarView",
+          "group": "navigation"
         }
       ]
     }

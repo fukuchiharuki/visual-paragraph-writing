@@ -1,16 +1,24 @@
-import hash from "../../util/hash";
+import TextElement, { hashOfTextElement } from "../../model/text/TextElement";
 
-export default class IdPayoutMachine<T> {
-  private ids = new Array<String>();
+export default class IdPayoutMachine {
+  private codes = new Array<String>();
 
-  payout(element: T): string {
-    const id = hash(element);
-    const seq = this.ids.filter(it => it === id).length;
-    this.ids.push(id);
-    return `${id}:${seq}`;
+  payout(element: TextElement): string {
+    const code = this.code(element);
+    const seq = this.codes.filter(it => it === code).length;
+    this.codes.push(code);
+    return `${code}:${seq}`;
   }
 
-  clear() {
-    this.ids.length = 0;
+  reset() {
+    this.codes.length = 0;
+  }
+
+  code(element: TextElement): string {
+    return hashOfTextElement(element);
+  }
+
+  isApplicable(element: TextElement, id: string): boolean {
+    return id.startsWith(this.code(element));
   }
 }

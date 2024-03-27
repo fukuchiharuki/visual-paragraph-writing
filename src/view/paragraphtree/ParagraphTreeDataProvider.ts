@@ -3,9 +3,11 @@ import { isSentence } from '../../model/text/Sentence';
 import TextElement from '../../model/text/TextElement';
 import ParagraphTreeItem from './ParagraphTreeItem';
 import IdPayoutMachine from './IdPayoutMachine';
+import CollapsibleStatesHolder from './CollapsibleStatesHolder';
 
 export default class ParagraphTreeDataProvider implements vscode.TreeDataProvider<TextElement> {
-  private idPayoutMachine = new IdPayoutMachine<TextElement>();
+  private idPayoutMachine = new IdPayoutMachine();
+  private collapsibleStates = new CollapsibleStatesHolder(this.idPayoutMachine);
 
   constructor(private elements: TextElement[] = []) { }
 
@@ -17,13 +19,37 @@ export default class ParagraphTreeDataProvider implements vscode.TreeDataProvide
   refresh(elements: TextElement[]): void {
     this.elements = elements;
     this._onDidChangeTreeData.fire(undefined);
-    this.idPayoutMachine.clear();
+    this.idPayoutMachine.reset();
+    this.collapsibleStates.reset(elements);
+  }
+
+  collapseAll(): void {
+    this._onDidChangeTreeData.fire(undefined);
+    this.collapsibleStates.collapseAll();
+  }
+
+  onDidExpandElement(element: TextElement) {
+    this.collapsibleStates.set(element, true);
+  }
+
+  onDidCollapseElement(element: TextElement) {
+    this.collapsibleStates.set(element, false);
   }
 
   getTreeItem(element: TextElement): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return isSentence(element)
-      ? new ParagraphTreeItem(this.idPayoutMachine.payout(element), element.content, vscode.TreeItemCollapsibleState.None)
-      : new ParagraphTreeItem(this.idPayoutMachine.payout(element), element.content[0].content, vscode.TreeItemCollapsibleState.Expanded);
+      ? new ParagraphTreeItem(
+        this.idPayoutMachine.payout(element),
+        element.content,
+        vscode.TreeItemCollapsibleState.None
+      )
+      : new ParagraphTreeItem(
+        this.idPayoutMachine.payout(element),
+        element.content[0].content,
+        this.collapsibleStates.get(element)
+          ? vscode.TreeItemCollapsibleState.Expanded
+          : vscode.TreeItemCollapsibleState.Collapsed
+      );
   }
 
   getChildren(element?: TextElement | undefined): vscode.ProviderResult<TextElement[]> {

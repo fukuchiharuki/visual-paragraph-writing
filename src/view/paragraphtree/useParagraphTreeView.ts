@@ -28,6 +28,12 @@ export default function useParagraphTreeView() {
       })
     );
 
+    disposables.push(
+      vscode.commands.registerCommand('visual-paragraph-writing.collapseAll', () => {
+        paragraphTreeView.collapseAll();
+      })
+    );
+
     treeView.onDidChangeSelection(event => {
       const selection = event.selection;
       if (selection && selection.length) {
@@ -35,13 +41,13 @@ export default function useParagraphTreeView() {
       }
     });
 
-    // treeView.onDidExpandElement(event => {
-    //   paragraphTreeView.onDidExpandElement(event.element);
-    // });
+    treeView.onDidExpandElement(event => {
+      paragraphTreeView.onDidExpandElement(event.element);
+    });
 
-    // treeView.onDidCollapseElement(event => {
-    //   paragraphTreeView.onDidCollapseElement(event.element);
-    // });
+    treeView.onDidCollapseElement(event => {
+      paragraphTreeView.onDidCollapseElement(event.element);
+    });
 
     return disposables;
   }

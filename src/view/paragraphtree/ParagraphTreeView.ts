@@ -19,6 +19,18 @@ export default class ParagraphTreeView {
     this.dataProvider.refresh(convertTextToParagraphs(document.getText()));
   }
 
+  collapseAll() {
+    this.dataProvider.collapseAll();
+  }
+
+  onDidExpandElement(element: TextElement) {
+    this.dataProvider.onDidExpandElement(element);
+  }
+
+  onDidCollapseElement(element: TextElement) {
+    this.dataProvider.onDidCollapseElement(element);
+  }
+
   onDidChangeSelection(selection: TextElement) {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
