@@ -1,3 +1,5 @@
+import hash from "../../util/hash";
+
 type Sentence = {
   content: string
   lineNumber: number
@@ -16,4 +18,8 @@ export function isSentence(value: unknown): value is Sentence {
   }
 
   return true;
+}
+
+export function hashOfSentence(sentence: Sentence): string {
+  return hash(sentence.content);
 }
