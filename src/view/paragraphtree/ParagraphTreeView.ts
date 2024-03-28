@@ -44,6 +44,7 @@ export default class ParagraphTreeView {
         new vscode.Range(position, position),
         vscode.TextEditorRevealType.AtTop
       );
+      vscode.window.showTextDocument(editor.document, editor.viewColumn);
     }
   }
 }
