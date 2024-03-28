@@ -46,6 +46,13 @@
       ]
     }
   },
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/fukuchiharuki/visual-paragraph-writing.git"
+  },
+  "vsce": {
+    "baseImagesUrl": "https://raw.githubusercontent.com/fukuchiharuki/visual-paragraph-writing/main/"
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
