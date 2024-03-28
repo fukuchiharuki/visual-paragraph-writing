@@ -32,11 +32,12 @@ export default class ParagraphTreeView {
   }
 
   onDidChangeSelection(selection: TextElement) {
+    if (!isSentence(selection)) {
+      return;
+    }
     const editor = vscode.window.activeTextEditor;
     if (editor) {
-      const lineNumber = isSentence(selection)
-        ? selection.lineNumber
-        : selection.content[0].lineNumber;
+      const lineNumber = selection.lineNumber;
       const position = new vscode.Position(lineNumber, 0);
       editor.selection = new vscode.Selection(position, position);
       editor.revealRange(
