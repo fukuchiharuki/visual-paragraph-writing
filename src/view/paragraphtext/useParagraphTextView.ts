@@ -24,6 +24,12 @@ export default function useParagraphTextView() {
           debounce(() => refresh(event.document, getLineNumber(editor)));
         }
       }),
+
+      // テキスト本文中のカーソル位置変更に伴うサイドバーの更新
+      vscode.window.onDidChangeTextEditorSelection(event => {
+        const editor = event.textEditor;
+        debounce(() => refresh(editor.document, getLineNumber(editor)));
+      }),
     ];
   }
 
