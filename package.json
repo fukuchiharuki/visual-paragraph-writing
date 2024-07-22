@@ -23,17 +23,22 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "paragraphTreeActivityView",
-          "title": "Paragraph Tree",
+          "id": "visualParagraphWritingActivityView",
+          "title": "Visual Paragraph Writing",
           "icon": "media/tree-structure-svgrepo-com.svg"
         }
       ]
     },
     "views": {
-      "paragraphTreeActivityView": [
+      "visualParagraphWritingActivityView": [
         {
           "id": "paragraphTreeSidebarView",
-          "name": "Paragraph Tree"
+          "name": "Topic Sentences"
+        },
+        {
+          "type": "webview",
+          "id": "paragraphTextSidebarView",
+          "name": "The Paragraph"
         }
       ]
     },
