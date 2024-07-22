@@ -38,7 +38,7 @@
         {
           "type": "webview",
           "id": "paragraphTextSidebarView",
-          "name": "The Paragraph"
+          "name": "Editing Paragraph"
         }
       ]
     },
