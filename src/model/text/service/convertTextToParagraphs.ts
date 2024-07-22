@@ -4,7 +4,8 @@ import Sentence from "../Sentence";
 type Line = Sentence;
 
 export default function convertTextToParagraphs(text: string): Paragraph[] {
-  return text.split('\n')
+  return text
+    .split("\n")
     .map((content, lineNumber) => ({ content, lineNumber }))
     .reduce(reducer, [])
     .filter(isNotEmpty);
@@ -19,10 +20,8 @@ function appendSentence(acc: Paragraph[], line: Line): Paragraph[] {
   const lastParagraph = ret.pop();
   return ret.concat([
     {
-      content: lastParagraph
-        ? lastParagraph.content.concat([line])
-        : [line]
-    }
+      content: lastParagraph ? lastParagraph.content.concat([line]) : [line],
+    },
   ]);
 }
 

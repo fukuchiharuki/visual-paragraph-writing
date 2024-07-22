@@ -1,9 +1,9 @@
-import * as vscode from 'vscode';
-import { isSentence } from '../../model/text/Sentence';
-import TextElement from '../../model/text/TextElement';
-import IdPayoutMachine from './IdPayoutMachine';
-import Paragraph from '../../model/text/Paragraph';
-import UncollapsibleParagraphTreeItem from './UncollapsibleParagraphTreeItem';
+import * as vscode from "vscode";
+import { isSentence } from "../../model/text/Sentence";
+import TextElement from "../../model/text/TextElement";
+import IdPayoutMachine from "./IdPayoutMachine";
+import Paragraph from "../../model/text/Paragraph";
+import UncollapsibleParagraphTreeItem from "./UncollapsibleParagraphTreeItem";
 
 export default class UncollapsibleParagraphTreeDataProvider
   implements vscode.TreeDataProvider<TextElement>
@@ -39,29 +39,36 @@ export default class UncollapsibleParagraphTreeDataProvider
   onDidChangeSelection(element: TextElement): number | null {
     return this.checkNotSentence(
       element,
-      (paragraph) => paragraph.content[0].lineNumber
+      (paragraph) => paragraph.content[0].lineNumber,
     );
   }
 
-  getTreeItem(element: TextElement): vscode.TreeItem | Thenable<vscode.TreeItem> {
+  getTreeItem(
+    element: TextElement,
+  ): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return this.checkNotSentence(
       element,
       (paragraph) =>
         new UncollapsibleParagraphTreeItem(
           this.idPayoutMachine.payout(element),
-          paragraph.content[0].content
-        )
+          paragraph.content[0].content,
+        ),
     );
   }
 
-  private checkNotSentence<T>(element: TextElement, block: (paragraph: Paragraph) => T): T {
+  private checkNotSentence<T>(
+    element: TextElement,
+    block: (paragraph: Paragraph) => T,
+  ): T {
     if (isSentence(element)) {
       throw new Error("should not be reached");
     }
     return block(element);
   }
 
-  getChildren(element?: TextElement | undefined): vscode.ProviderResult<TextElement[]> {
+  getChildren(
+    element?: TextElement | undefined,
+  ): vscode.ProviderResult<TextElement[]> {
     return element ? [] : this.elements;
   }
 }

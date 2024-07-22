@@ -1,7 +1,9 @@
-import * as vscode from 'vscode';
-import Paragraph from '../../model/text/Paragraph';
+import * as vscode from "vscode";
+import Paragraph from "../../model/text/Paragraph";
 
-export default class ParagraphTextViewProvider implements vscode.WebviewViewProvider {
+export default class ParagraphTextViewProvider
+  implements vscode.WebviewViewProvider
+{
   constructor() {}
 
   private view?: vscode.WebviewView;
@@ -24,7 +26,7 @@ function generateHtml(paragraph?: Paragraph): string {
   const sentences = paragraph?.content
     ?.map((sentence) => sentence.content)
     ?.map((text) => `<span>${text}</span>`)
-    ?.join('\n');
+    ?.join("\n");
 
   return `
     <!DOCTYPE html>
@@ -34,7 +36,7 @@ function generateHtml(paragraph?: Paragraph): string {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>The Paragraph</title>
     </head>
-    <body>${sentences || ''}</body>
+    <body>${sentences || ""}</body>
     </html>
   `;
 }

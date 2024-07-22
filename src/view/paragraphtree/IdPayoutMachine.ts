@@ -5,7 +5,7 @@ export default class IdPayoutMachine {
 
   payout(element: TextElement): string {
     const code = this.code(element);
-    const seq = this.codes.filter(it => it === code).length;
+    const seq = this.codes.filter((it) => it === code).length;
     this.codes.push(code);
     return `${code}:${seq}`;
   }

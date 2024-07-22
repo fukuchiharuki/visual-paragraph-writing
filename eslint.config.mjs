@@ -24,5 +24,5 @@ export default [
       ...tsEsLintPlugin.configs["recommended-type-checked"].rules,
       "@typescript-eslint/no-explicit-any": "error",
     },
-  }
+  },
 ];

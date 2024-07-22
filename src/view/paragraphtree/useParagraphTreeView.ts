@@ -1,11 +1,13 @@
-import * as vscode from 'vscode';
-import ParagraphTreeView from './ParagraphTreeView';
-import UncollapsibleParagraphTreeDataProvider from './UncollapsibleParagraphTreeDataProvider';
-import useDebounce from '../../util/debounce';
+import * as vscode from "vscode";
+import ParagraphTreeView from "./ParagraphTreeView";
+import UncollapsibleParagraphTreeDataProvider from "./UncollapsibleParagraphTreeDataProvider";
+import useDebounce from "../../util/debounce";
 
 export default function useParagraphTreeView() {
   const { debounce } = useDebounce();
-  const paragraphTreeView = new ParagraphTreeView(new UncollapsibleParagraphTreeDataProvider());
+  const paragraphTreeView = new ParagraphTreeView(
+    new UncollapsibleParagraphTreeDataProvider(),
+  );
   const treeView = paragraphTreeView.register();
   const handlers = attachEventHandlers();
   initialize();
@@ -15,12 +17,12 @@ export default function useParagraphTreeView() {
   function attachEventHandlers(): vscode.Disposable[] {
     return [
       // アクティブなテキストエディターの変更に伴うサイドバーの更新
-      vscode.window.onDidChangeActiveTextEditor(editor => {
+      vscode.window.onDidChangeActiveTextEditor((editor) => {
         debounce(() => reflect(editor));
       }),
 
       // テキスト本文の変更に伴うサイドバーの更新
-      vscode.workspace.onDidChangeTextDocument(event => {
+      vscode.workspace.onDidChangeTextDocument((event) => {
         const editor = vscode.window.activeTextEditor;
         if (editor && event.document === editor.document) {
           debounce(() => refresh(event.document));
@@ -28,22 +30,25 @@ export default function useParagraphTreeView() {
       }),
 
       // すべて閉じるボタンによるサイドバーの更新
-      vscode.commands.registerCommand('visual-paragraph-writing.collapseAll', () => {
-        paragraphTreeView.collapseAll();
-      }),
+      vscode.commands.registerCommand(
+        "visual-paragraph-writing.collapseAll",
+        () => {
+          paragraphTreeView.collapseAll();
+        },
+      ),
 
       // 開操作による内部状態の更新
-      treeView.onDidExpandElement(event => {
+      treeView.onDidExpandElement((event) => {
         paragraphTreeView.onDidExpandElement(event.element);
       }),
 
       // 閉操作による内部状態の更新
-      treeView.onDidCollapseElement(event => {
+      treeView.onDidCollapseElement((event) => {
         paragraphTreeView.onDidCollapseElement(event.element);
       }),
 
       // クリックによるテキストエディター上のジャンプ
-      treeView.onDidChangeSelection(async event => {
+      treeView.onDidChangeSelection(async (event) => {
         const selection = event.selection;
         if (selection && selection.length) {
           await paragraphTreeView.onDidChangeSelection(selection[0]);
