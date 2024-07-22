@@ -42,7 +42,7 @@
         }
       ]
     },
-    "menus": {
+    "# menus": {
       "view/title": [
         {
           "command": "visual-paragraph-writing.collapseAll",
