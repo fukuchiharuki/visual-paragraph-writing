@@ -1,5 +1,7 @@
 import { Md5 } from 'ts-md5';
 
-export default function hash(obj: any): string {
+type Any = string | string[] | object
+
+export default function hash(obj: Any): string {
   return Md5.hashStr(JSON.stringify(obj));
 }

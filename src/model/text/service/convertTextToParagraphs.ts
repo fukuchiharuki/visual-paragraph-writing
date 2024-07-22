@@ -30,6 +30,6 @@ function newParagraph(acc: Paragraph[]): Paragraph[] {
   return acc.concat([{ content: [] }]);
 }
 
-function isNotEmpty(it: Paragraph): Boolean {
+function isNotEmpty(it: Paragraph): boolean {
   return it.content.length > 0;
 }

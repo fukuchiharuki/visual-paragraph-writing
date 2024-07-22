@@ -28,11 +28,11 @@ export default class UncollapsibleParagraphTreeDataProvider
     // do nothing
   }
 
-  onDidExpandElement(element: TextElement) {
+  onDidExpandElement(/* element: TextElement */) {
     // do nothing
   }
 
-  onDidCollapseElement(element: TextElement) {
+  onDidCollapseElement(/* element: TextElement */) {
     // do nothing
   }
 

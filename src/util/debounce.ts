@@ -9,5 +9,5 @@ export default function useDebounce(wait: number = 500) {
       updateTimer = null;
     }
     updateTimer = setTimeout(fn, wait);
-  };
+  }
 }

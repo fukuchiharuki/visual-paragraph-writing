@@ -33,7 +33,7 @@ export default class ParagraphTreeView {
     this.dataProvider.onDidCollapseElement(element);
   }
 
-  onDidChangeSelection(element: TextElement) {
+  async onDidChangeSelection(element: TextElement) {
     const lineNumber = this.dataProvider.onDidChangeSelection(element);
     const editor = vscode.window.activeTextEditor;
     if (lineNumber !== null && editor) {
@@ -43,7 +43,7 @@ export default class ParagraphTreeView {
         new vscode.Range(position, position),
         vscode.TextEditorRevealType.AtTop
       );
-      vscode.window.showTextDocument(editor.document, editor.viewColumn);
+      await vscode.window.showTextDocument(editor.document, editor.viewColumn);
     }
   }
 }

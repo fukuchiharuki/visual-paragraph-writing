@@ -8,8 +8,8 @@ export default class ParagraphTextViewProvider implements vscode.WebviewViewProv
 
   resolveWebviewView(
     webviewView: vscode.WebviewView,
-    context: vscode.WebviewViewResolveContext,
-    token: vscode.CancellationToken
+    // context: vscode.WebviewViewResolveContext,
+    // token: vscode.CancellationToken
   ): Thenable<void> | void {
     this.view = webviewView;
     webviewView.webview.html = generateHtml();

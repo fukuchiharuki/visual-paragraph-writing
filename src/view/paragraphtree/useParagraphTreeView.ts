@@ -43,10 +43,10 @@ export default function useParagraphTreeView() {
       }),
 
       // クリックによるテキストエディター上のジャンプ
-      treeView.onDidChangeSelection(event => {
+      treeView.onDidChangeSelection(async event => {
         const selection = event.selection;
         if (selection && selection.length) {
-          paragraphTreeView.onDidChangeSelection(selection[0]);
+          await paragraphTreeView.onDidChangeSelection(selection[0]);
         }
       }),
     ];
