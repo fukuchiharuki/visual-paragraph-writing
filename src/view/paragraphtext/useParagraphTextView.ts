@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
-import debounce from '../../util/debounce';
 import ParagraphTextView from '../paragraphtext/ParagraphTextView';
+import useDebounce from '../../util/debounce';
 
 export default function useParagraphTextView() {
+  const { debounce } = useDebounce();
   const paragraphTextView = new ParagraphTextView();
   const textView = paragraphTextView.register();
   const handlers = attachEventHandlers();
