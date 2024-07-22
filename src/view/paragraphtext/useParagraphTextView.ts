@@ -21,7 +21,7 @@ export default function useParagraphTextView() {
       vscode.workspace.onDidChangeTextDocument(event => {
         const editor = vscode.window.activeTextEditor;
         if (editor && event.document === editor.document) {
-          debounce(() => refresh(event.document));
+          debounce(() => refresh(event.document, getLineNumber(editor)));
         }
       }),
     ];
@@ -33,11 +33,16 @@ export default function useParagraphTextView() {
 
   function reflect(editor: vscode.TextEditor | undefined) {
     if (editor) {
-      refresh(editor.document);
+      refresh(editor.document, getLineNumber(editor));
     }
   }
 
-  function refresh(document: vscode.TextDocument) {
-    paragraphTextView.refresh(document);
+  function refresh(document: vscode.TextDocument, lineNumber: number) {
+    paragraphTextView.refresh(document, lineNumber);
   }
+}
+
+function getLineNumber(editor: vscode.TextEditor): number {
+  const cursorPosition = editor.selection.active;
+  return cursorPosition.line;
 }
