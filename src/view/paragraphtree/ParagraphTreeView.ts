@@ -8,7 +8,7 @@ type ParagraphTreeViewProvider = CollapsibleParagraphTreeDataProvider | Uncollap
 
 export default class ParagraphTreeView {
   constructor(
-    private dataProvider: ParagraphTreeViewProvider = new UncollapsibleParagraphTreeDataProvider()
+    private readonly dataProvider: ParagraphTreeViewProvider
   ) {}
 
   register(): vscode.TreeView<TextElement> {

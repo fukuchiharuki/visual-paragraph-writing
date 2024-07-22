@@ -1,9 +1,10 @@
 import * as vscode from 'vscode';
 import ParagraphTreeView from './ParagraphTreeView';
 import debounce from '../../util/debounce';
+import UncollapsibleParagraphTreeDataProvider from './UncollapsibleParagraphTreeDataProvider';
 
 export default function useParagraphTreeView() {
-  const paragraphTreeView = new ParagraphTreeView();
+  const paragraphTreeView = new ParagraphTreeView(new UncollapsibleParagraphTreeDataProvider());
   const treeView = paragraphTreeView.register();
   const handlers = attachEventHandlers();
   initialize();
