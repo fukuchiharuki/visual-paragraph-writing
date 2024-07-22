@@ -5,7 +5,7 @@ import ParagraphTreeItem from './ParagraphTreeItem';
 import IdPayoutMachine from './IdPayoutMachine';
 import CollapsibleStatesHolder from './CollapsibleStatesHolder';
 
-export default class ParagraphTreeDataProvider implements vscode.TreeDataProvider<TextElement> {
+export default class CollapsibleParagraphTreeDataProvider implements vscode.TreeDataProvider<TextElement> {
   private idPayoutMachine = new IdPayoutMachine();
   private collapsibleStates = new CollapsibleStatesHolder(this.idPayoutMachine);
 

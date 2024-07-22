@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
-import ParagraphTreeDataProvider from './ParagraphTreeDataProvider';
+import CollapsibleParagraphTreeDataProvider from './CollapsibleParagraphTreeDataProvider';
 import convertTextToParagraphs from '../../model/text/service/convertTextToParagraphs';
 import TextElement from '../../model/text/TextElement';
 import { isSentence } from '../../model/text/Sentence';
 
 export default class ParagraphTreeView {
   constructor(
-    private dataProvider: ParagraphTreeDataProvider = new ParagraphTreeDataProvider()
+    private dataProvider: CollapsibleParagraphTreeDataProvider = new CollapsibleParagraphTreeDataProvider()
   ) {}
 
   register(): vscode.TreeView<TextElement> {
