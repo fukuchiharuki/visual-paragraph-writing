@@ -36,6 +36,9 @@ function generateHtml(paragraph?: Paragraph): string {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Editing Paragraph</title>
       <style type="text/css">
+        span {
+          line-height: 1.5;
+        }
         span:nth-child(1) {
           font-weight: bold;
         }
