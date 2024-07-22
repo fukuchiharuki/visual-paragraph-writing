@@ -36,6 +36,13 @@ export default class CollapsibleParagraphTreeDataProvider implements vscode.Tree
     this.collapsibleStates.set(element, false);
   }
 
+  onDidChangeSelection(element: TextElement): number | null {
+    if (!isSentence(element)) {
+      return null;
+    }
+    return element.lineNumber;
+  }
+
   getTreeItem(element: TextElement): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return isSentence(element)
       ? new ParagraphTreeItem(

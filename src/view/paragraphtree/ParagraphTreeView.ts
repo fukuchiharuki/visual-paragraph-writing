@@ -2,11 +2,13 @@ import * as vscode from 'vscode';
 import CollapsibleParagraphTreeDataProvider from './CollapsibleParagraphTreeDataProvider';
 import convertTextToParagraphs from '../../model/text/service/convertTextToParagraphs';
 import TextElement from '../../model/text/TextElement';
-import { isSentence } from '../../model/text/Sentence';
+import UncollapsibleParagraphTreeDataProvider from './UncollapsibleParagraphTreeDataProvider';
+
+type ParagraphTreeViewProvider = CollapsibleParagraphTreeDataProvider | UncollapsibleParagraphTreeDataProvider;
 
 export default class ParagraphTreeView {
   constructor(
-    private dataProvider: CollapsibleParagraphTreeDataProvider = new CollapsibleParagraphTreeDataProvider()
+    private dataProvider: ParagraphTreeViewProvider = new UncollapsibleParagraphTreeDataProvider()
   ) {}
 
   register(): vscode.TreeView<TextElement> {
@@ -31,13 +33,10 @@ export default class ParagraphTreeView {
     this.dataProvider.onDidCollapseElement(element);
   }
 
-  onDidChangeSelection(selection: TextElement) {
-    if (!isSentence(selection)) {
-      return;
-    }
+  onDidChangeSelection(element: TextElement) {
+    const lineNumber = this.dataProvider.onDidChangeSelection(element);
     const editor = vscode.window.activeTextEditor;
-    if (editor) {
-      const lineNumber = selection.lineNumber;
+    if (lineNumber !== null && editor) {
       const position = new vscode.Position(lineNumber, 0);
       editor.selection = new vscode.Selection(position, position);
       editor.revealRange(

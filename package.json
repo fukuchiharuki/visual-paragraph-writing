@@ -13,7 +13,7 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "# commands": [
       {
         "command": "visual-paragraph-writing.collapseAll",
         "title": "Collapse all",
