@@ -65,8 +65,9 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
-    "lintFormat": "eslint src --fix",
+    "lint:fix": "eslint src --fix",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "format": "npm run pretty && npm run lint:fix",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
