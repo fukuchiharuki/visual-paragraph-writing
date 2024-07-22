@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as path from "path";
+import paragraphIcon from "../../icon/paragraph";
 
 export default class UncollapsibleParagraphTreeItem extends vscode.TreeItem {
   constructor(
@@ -9,14 +9,6 @@ export default class UncollapsibleParagraphTreeItem extends vscode.TreeItem {
       .TreeItemCollapsibleState.None,
   ) {
     super(label, collapsibleState);
-    this.iconPath = path.join(
-      __filename,
-      "..",
-      "..",
-      "..",
-      "..",
-      "media",
-      "paragraph-svgrepo-com.svg",
-    );
+    this.iconPath = paragraphIcon();
   }
 }
