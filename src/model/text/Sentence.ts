@@ -1,8 +1,8 @@
 import hash from "../../util/hash";
 
 type Sentence = {
-  content: string
-  lineNumber: number
+  content: string;
+  lineNumber: number;
 };
 
 export default Sentence;

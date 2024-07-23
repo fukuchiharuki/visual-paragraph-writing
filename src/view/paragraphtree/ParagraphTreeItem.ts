@@ -1,15 +1,16 @@
-import * as vscode from 'vscode';
-import * as path from 'path';
+import * as vscode from "vscode";
+import paragraphIcon from "../../icon/paragraph";
 
 export default class ParagraphTreeItem extends vscode.TreeItem {
   constructor(
     public readonly id: string,
     public readonly label: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState
+    public readonly collapsibleState: vscode.TreeItemCollapsibleState,
   ) {
     super(label, collapsibleState);
-    this.iconPath = (collapsibleState !== vscode.TreeItemCollapsibleState.None)
-      ? path.join(__filename, '..', '..', '..', '..', 'media', 'paragraph-svgrepo-com.svg')
-      : undefined;
+    this.iconPath =
+      collapsibleState !== vscode.TreeItemCollapsibleState.None
+        ? paragraphIcon()
+        : undefined;
   }
 }

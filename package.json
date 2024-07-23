@@ -2,7 +2,7 @@
   "name": "visual-paragraph-writing",
   "displayName": "Visual Paragraph Writing",
   "description": "Paragraph writing support for VS Code.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "fukuchiharuki",
   "engines": {
     "vscode": "^1.87.0"
@@ -13,7 +13,7 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "# commands": [
       {
         "command": "visual-paragraph-writing.collapseAll",
         "title": "Collapse all",
@@ -23,21 +23,26 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "paragraphTreeActivityView",
-          "title": "Paragraph Tree",
-          "icon": "media/tree-structure-svgrepo-com.svg"
+          "id": "visualParagraphWritingActivityView",
+          "title": "Visual Paragraph Writing",
+          "icon": "media/sidebar-svgrepo-com.svg"
         }
       ]
     },
     "views": {
-      "paragraphTreeActivityView": [
+      "visualParagraphWritingActivityView": [
         {
           "id": "paragraphTreeSidebarView",
-          "name": "Paragraph Tree"
+          "name": "Topic Sentences"
+        },
+        {
+          "type": "webview",
+          "id": "paragraphTextSidebarView",
+          "name": "Focused Paragraph"
         }
       ]
     },
-    "menus": {
+    "# menus": {
       "view/title": [
         {
           "command": "visual-paragraph-writing.collapseAll",
@@ -47,7 +52,7 @@
       ]
     }
   },
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/fukuchiharuki/visual-paragraph-writing.git"
   },
@@ -59,7 +64,10 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "format": "npm run pretty && npm run lint:fix",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
@@ -72,7 +80,8 @@
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
-    "typescript": "^5.1.6"
+    "prettier": "^3.3.3",
+    "typescript": "~5.3.0"
   },
   "dependencies": {
     "ts-md5": "^1.3.1"

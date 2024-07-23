@@ -1,11 +1,11 @@
 import TextElement, { hashOfTextElement } from "../../model/text/TextElement";
 
 export default class IdPayoutMachine {
-  private codes = new Array<String>();
+  private codes = new Array<string>();
 
   payout(element: TextElement): string {
     const code = this.code(element);
-    const seq = this.codes.filter(it => it === code).length;
+    const seq = this.codes.filter((it) => it === code).length;
     this.codes.push(code);
     return `${code}:${seq}`;
   }

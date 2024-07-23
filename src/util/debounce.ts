@@ -1,9 +1,13 @@
-let updateTimer: NodeJS.Timeout | null = null;
+export default function useDebounce(wait: number = 500) {
+  let updateTimer: NodeJS.Timeout | null = null;
 
-export default function debounce(fn: () => void, ms: number = 500) {
-	if (updateTimer) {
-		clearTimeout(updateTimer);
-		updateTimer = null;
-	}
-	updateTimer = setTimeout(fn, ms);
+  return { debounce };
+
+  function debounce(fn: () => void) {
+    if (updateTimer) {
+      clearTimeout(updateTimer);
+      updateTimer = null;
+    }
+    updateTimer = setTimeout(fn, wait);
+  }
 }
