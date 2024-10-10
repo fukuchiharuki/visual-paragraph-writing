@@ -2,7 +2,7 @@
   "name": "visual-paragraph-writing",
   "displayName": "Visual Paragraph Writing",
   "description": "Paragraph writing support for VS Code.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "fukuchiharuki",
   "engines": {
     "vscode": "^1.87.0"
