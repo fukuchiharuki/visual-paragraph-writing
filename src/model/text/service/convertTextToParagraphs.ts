@@ -5,7 +5,7 @@ type Line = Sentence;
 
 export default function convertTextToParagraphs(text: string): Paragraph[] {
   return text
-    .split("\n")
+    .split(/\r?\n/)
     .map((content, lineNumber) => ({ content, lineNumber }))
     .reduce(reducer, [])
     .filter(isNotEmpty);
