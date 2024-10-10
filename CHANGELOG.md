@@ -4,6 +4,12 @@
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 -->
 
+## [1.0.1] - 2024-10-10
+
+### Fixed
+
+- Split into lines even at CRLF.
+
 ## [1.0.0] - 2024-07-23
 
 ### Added
